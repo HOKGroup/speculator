@@ -1,0 +1,6 @@
+primary,secondary,name,desciption,path
+PREPARATION;REGRADING,the;door;should;clearly,Filter A,Some description for filter A,static/css/images/2.png
+ACTION SUBMITTALS,plans;sections;door,Filter B,some description B,static/css/images/1.png
+CROWN PRUNING,must;like;clearly,Filter C,some description C,static/css/images/1.png
+RANDOM,cat;dog,Filter D,some description E,static/css/images/2.png
+RANDOM2,cat;dog;car,Filter F,some description R,static/css/images/2.png

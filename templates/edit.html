@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    {% if messages %}
+                    {% for message in messages %}
+                    {% if message.tags == 'success' %}
+                    <div class="alert alert-success">{{ message }}</div>
+                    {% elif message.tags == 'error' %}
+                    <div class="alert alert-danger">{{ message }}</div>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-12 justify-content-center">
+                {% block secondary_filter %}
+                <h1>{% block primary_filter %} Edit "{{ post['primary_filter'] }}" {% endblock %}</h1>
+
+                <form method="post">
+
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <textarea name="name" placeholder="Name"
+                                  class="form-control">{{ request.form['name'] or post['name'] }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea name="description" placeholder="Description"
+                                  class="form-control">{{ request.form['description'] or post['description'] }}</textarea>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="primary_filter">Primary</label>
+                        <input type="text" name="primary_filter" placeholder="Primary filter"
+                               class="form-control"
+                               value="{{ request.form['primary_filter'] or post['primary_filter'] }}">
+                        </input>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="secondary_filter">Secondary</label>
+                        <textarea name="secondary_filter" placeholder="Secondary filter"
+                                  class="form-control">{{ request.form['secondary_filter'] or post['secondary_filter'] }}</textarea>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+
+                </form>
+                <hr>
+
+
+                <form action="{{ url_for('delete', id=post['id']) }}" method="POST">
+                    <input type="submit" value="Delete Filter"
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('Are you sure you want to delete this post?')">
+                </form>
+                {% endblock %}
+            </div>
+        </main>
+    </div>
+</div>
+
+

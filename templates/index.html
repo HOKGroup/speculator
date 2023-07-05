@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block secondary_filter %}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <div class="text-center">
+                    <div class="btn-group-vertical">
+
+
+                        <button data-target="#exampleModal" class="btn btn-lg btn-secondary btn-block custom"
+                                data-toggle="modal" onclick="location.href = '/create'">New Filter
+                        </button>
+
+                        <form action="/download" method="POST">
+                            <input type="radio" id="old" name="type" value="old" checked>
+                            <label for="old">Old Type</label><br>
+                            <input type="radio" id="new" name="type" value="new">
+                            <label for="new">New Type</label><br>
+                            <br>
+                            <label>Filter to use:</label><br>
+                            <SELECT name="filter_to_use"  class="btn btn-bloc custom" >
+                                {% for post in posts %}
+                                <OPTION value={{post.id}}>{{post.name}}</option>
+                                {% endfor %}
+                            </SELECT>
+                             <br>
+                             <br>
+                            <input class="btn btn-lg btn-outline-success btn-block custom" type="submit"
+                                   value="Run"></input>
+                        </form>
+                    </div>
+                </div>
+        </nav>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    {% for message in messages %}
+                    {{ message }}
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                </div>
+            </div>
+            <h5 class="col-md-9 ml-sm-auto col-lg-8 pt-1 px-1 float-left">Select PDF Files</h5>
+
+            <form
+                    action="{{ url_for('uploadfile') }}"
+                    method="POST"
+                    enctype="multipart/form-data"
+            >
+                <input class="custom-file-upload" type="file" name="files" multiple="true"/>
+                <input type="submit" class="btn btn-lg btn-secondary btn-block custom" value="Confirm PDFs">
+            </form>
+            <hr>
+            <h5 class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-1 float-left">Select Filters (csv)</h5>
+            <form
+                    action="{{ url_for('uploadfilecsv') }}"
+                    method="POST"
+                    enctype="multipart/form-data"
+            >
+                <input class="custom-file-upload" type="file" name="files" multiple="true"/>
+                <input type="submit" class="btn btn-lg btn-secondary btn-block custom" value="Confirm CSV">
+            </form>
+            <hr>
+
+            <div class="col-lg-5 justify-content-center link-dark float-left">
+                {% for post in posts %}
+                <a href="{{ url_for('post', post_id=post['id']) }}">
+                    <h3>PRIMARY: {{ post['primary_filter'] }}</h3>
+                    <h4>SECONDARY: {{
+                        ','.join(post['secondary_filter'].split('\n')) }}</h4>
+                    <div class="card">
+                        <img src={{post['img_path']}} alt="Avatar" style="width:100%">
+                        <div class="container">
+                            <h4><b>{{ post['name'] }}</b></h4>
+                            <p>{{ post['description'] }}</p>
+                        </div>
+                    </div>
+
+                </a>
+                <span class="badge badge-primary">{{ post['created'] }}</span>
+                <a href="{{ url_for('edit', id=post['id']) }}">
+                    <h3 class="badge badge-dark">Edit</h3>
+                </a>
+                <hr>
+                {% endfor %}
+                {% endblock %}
+
+            </div>
+        </main>
+    </div>
+</div>
+
+

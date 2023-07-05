@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    {% if messages %}
+                    {% for message in messages %}
+                    {% if message.tags == 'success' %}
+                    <div class="alert alert-success">{{ message }}</div>
+                    {% elif message.tags == 'error' %}
+                    <div class="alert alert-danger">{{ message }}</div>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-12 justify-content-center">
+                {% block secondary_filter %}
+                <h1>{% block primary_filter %} Create a New Filter {% endblock %}</h1>
+
+                <form method="post" enctype="multipart/form-data">
+
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <textarea name="name" placeholder="Name"
+                                  class="form-control">{{ request.form['name'] }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea name="description" placeholder="Description"
+                                  class="form-control">{{ request.form['description'] }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="primary_filter">Primary</label>
+                        <input type="text" name="primary_filter"
+                               placeholder="Primary filters" class="form-control"
+                               value="{{ request.form['primary_filter'] }}"></input>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="secondary_filter">Secondary</label>
+                        <textarea name="secondary_filter" placeholder="Secondary filters"
+                                  class="form-control">{{ request.form['secondary_filter'] }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <input class="custom-file-upload" type="file" name="files" multiple="true"/></div>
+
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+                {% endblock %}
+            </div>
+        </main>
+    </div>
+</div>
+
+

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block secondary_filter %}
+
+    <span class="badge badge-primary">{{ post['created'] }}</span>
+    <h2>{{ post['name'] }}</h2>
+    <h3>{{ post['description'] }}</h3>
+    <h4>{% block primary_filter %} {{ post['primary_filter'] }} {% endblock %}</h4>
+    <p>{{ post['secondary_filter'] }}</p>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{
+  "1": {
+    "regex": "PART [0-9]",
+    "comment": "PART # \n(for ex: 'PART 1', 'PART 5')"
+  },
+  "2": {
+    "regex": "[0-9]+.[0-9]+",
+    "comment": "#.# \n(for ex: '2.1', '5.2')"
+  },
+  "3": {
+    "regex": "[A-Z]+.",
+    "comment": "A. \n(for ex: 'A.', 'C.')"
+  },
+  "4": {
+    "regex": "[0-9]+.",
+    "comment": "#. \n(for ex: '3.', '5.)"
+  },
+  "5": {
+    "regex": "[a-z]+.",
+    "comment": "a. \n(for ex: 'a.', 'b.')"
+  },
+  "6": {
+    "regex": "[0-9]+",
+    "comment": "#. \n(for ex:  '1', '2')"
+  },
+  "7": {
+    "regex": "NO PATTERN",
+    "comment": ""
+  }
+}
